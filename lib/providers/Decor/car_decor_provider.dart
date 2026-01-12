@@ -30,7 +30,7 @@ class CarDecorProvider extends ChangeNotifier {
   Future<void> loadProducts(String categoryId) async {
     loading = true;
     notifyListeners();
-
+print('Llllllllllllllllllllllllllll$categoryId');
     final res = await http.get(
       Uri.parse(
         'http://31.97.206.144:4072/api/admin/getcardecorproductbycat?cardecorId=$categoryId',

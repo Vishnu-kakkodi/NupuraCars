@@ -492,6 +492,14 @@ void _handlePaymentSuccessResponse(PaymentSuccessResponse response) async {
                     ),
 
                     const SizedBox(height: 24),
+if(widget.serviceTitle.toLowerCase().contains('airport'))
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: (){
+                      _callNow();
+                      }, child: Text("Immediate Call")),
+                    ),
+                    const SizedBox(height: 14),
 
                     /// SEATS
                     const Text(
