@@ -49,23 +49,58 @@ class BookingProvider with ChangeNotifier {
   }
 
   /// Get the most recent booking
-  Future<void> getRecentBooking(String userId) async {
-    _isLoading = true;
-    notifyListeners();
+  // Future<void> getRecentBooking(String userId) async {
+  //   _isLoading = true;
+  //   notifyListeners();
 
-    try {
-      _recentBooking = await _bookingService.fetchRecentBooking(userId);
-      if (_recentBooking != null) {
-        print('✅ Recent Booking: ${_recentBooking!.car.name}');
-      }
-    } catch (e) {
+  //   try {
+  //     _recentBooking = await _bookingService.fetchRecentBooking(userId);
+  //     if (_recentBooking != null) {
+  //       print('✅ Recent Booking: ${_recentBooking!.car.name}');
+  //     }
+  //   } catch (e) {
+  //     _recentBooking = null;
+  //     print('❌ Error fetching recent booking: $e');
+  //   } finally {
+  //     _isLoading = false;
+  //     notifyListeners();
+  //   }
+  // }
+
+
+
+  /// Get the most recent ACTIVE booking (exclude cancelled & completed)
+Future<void> getRecentBooking(String userId) async {
+  _isLoading = true;
+  notifyListeners();
+
+  try {
+    final booking = await _bookingService.fetchRecentBooking(userId);
+
+    if (booking == null) {
       _recentBooking = null;
-      print('❌ Error fetching recent booking: $e');
-    } finally {
-      _isLoading = false;
-      notifyListeners();
+      return;
     }
+
+    final status = booking.status.toLowerCase();
+
+    /// ❌ Ignore cancelled / completed
+    if (status == 'cancelled' || status == 'completed') {
+      _recentBooking = null;
+      print('ℹ️ Recent booking ignored due to status: $status');
+    } else {
+      _recentBooking = booking;
+      print('✅ Active Recent Booking: ${booking.car.name}');
+    }
+  } catch (e) {
+    _recentBooking = null;
+    print('❌ Error fetching recent booking: $e');
+  } finally {
+    _isLoading = false;
+    notifyListeners();
   }
+}
+
 
   /// Create a new booking
   Future<CreateBookingModel> createBooking({

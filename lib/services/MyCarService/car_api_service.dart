@@ -325,6 +325,9 @@ class CarApiService {
   /// Body: { "userId": "...", "carId": "..." }
   /// Response: { "message": "...", "isSuccessfull": true, "currentCar": "carId" }
   Future<String> setCurrentCar(String userId, String carId) async {
+    print("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk$userId");
+        print("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk$carId");
+
     final uri = _buildUri('/api/users/set-current-car');
     final response = await _client.put(
       uri,

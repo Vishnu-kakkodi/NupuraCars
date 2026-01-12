@@ -7,8 +7,10 @@ import 'package:nupura_cars/models/ServiceModel/new_service_model.dart';
 class ServiceApi {
   static const baseUrl = 'http://31.97.206.144:4072/api';
 
-  static Future<List<SubServiceModel>> fetchSubServices(String serviceId) async {
-    final res = await http.get(Uri.parse('$baseUrl/admin/getsubservices?serviceId=$serviceId'));
+  static Future<List<SubServiceModel>> fetchSubServices(String serviceId, String userId) async {
+    print("dgj;dddddddddddddddddddddddddddddddddddddddddddddddd");
+        final res = await http.get(Uri.parse('$baseUrl/admin/getsubservices/$userId?serviceId=$serviceId'));
+    print("oooooooooooooooooooooooooooooooooooooo${res.body}");
     final data = jsonDecode(res.body);
     return (data['subServices'] as List)
         .map((e) => SubServiceModel.fromJson(e))
@@ -24,8 +26,11 @@ class ServiceApi {
   }
 
   static Future<CartModel> fetchCart(String userId) async {
+        print("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
+
     final res = await http.get(Uri.parse('$baseUrl/users/getcart/$userId'));
     final data = jsonDecode(res.body);
+    print("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
     return CartModel.fromJson(data['cart']);
   }
 

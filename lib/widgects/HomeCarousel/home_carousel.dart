@@ -172,10 +172,10 @@ class _ResponsiveCarouselState extends State<ResponsiveCarousel>
                       return Transform.scale(
                         scale: value,
                         child: Container(
-                          margin: EdgeInsets.symmetric(
-                            horizontal: screenWidth < 400 ? 2.0 : 4.0,
-                            vertical: 8.0,
-                          ),
+                          // margin: EdgeInsets.symmetric(
+                          //   horizontal: screenWidth < 400 ? 2.0 : 4.0,
+                          //   vertical: 8.0,
+                          // ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(borderRadius),
                             boxShadow: [

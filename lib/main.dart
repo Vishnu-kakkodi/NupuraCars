@@ -1,4 +1,3 @@
-
 // import 'package:flutter/material.dart';
 // import 'package:nupura_cars/providers/MaintenanceProvider/maintenance_provider.dart';
 // import 'package:nupura_cars/providers/MyCarProvider/car_provider.dart';
@@ -133,23 +132,6 @@
 //   }
 // }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // import 'package:flutter/material.dart';
 // import 'package:nupura_cars/splash_screen.dart';
 // import 'package:provider/provider.dart';
@@ -258,27 +240,9 @@
 //   }
 // }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:nupura_cars/providers/CartProvider/cart_provider.dart';
+import 'package:nupura_cars/providers/Decor/car_decor_provider.dart';
 import 'package:nupura_cars/providers/ServiceNameProvider/new_service_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -343,14 +307,17 @@ class MyApp extends StatelessWidget {
         /// 🔥 Core system providers
         ChangeNotifierProvider(create: (_) => MaintenanceProvider()),
         ChangeNotifierProvider(create: (_) => VersionProvider()),
-               ChangeNotifierProvider(create: (_) => CartProvider()),
+        ChangeNotifierProvider(create: (_) => CartProvider()),
         ChangeNotifierProvider(create: (_) => ServiceProvider()),
+        ChangeNotifierProvider(create: (_) => CarDecorProvider()),
       ],
       child: Builder(
         builder: (context) {
           /// When app resumes from background → re-check maintenance + version
           AppLifecycleService.instance.onAppResumed ??= () {
-            debugPrint("🔁 App resumed → re-check maintenance & version (nupura_cars)");
+            debugPrint(
+              "🔁 App resumed → re-check maintenance & version (nupura_cars)",
+            );
             context.read<MaintenanceProvider>().checkMaintenance();
             context.read<VersionProvider>().checkVersion();
           };
@@ -388,9 +355,7 @@ class MyApp extends StatelessWidget {
               }
 
               // Always wrap with UpgradeWatcher (version checks)
-              return UpgradeWatcher(
-                child: screen,
-              );
+              return UpgradeWatcher(child: screen);
             },
           );
         },

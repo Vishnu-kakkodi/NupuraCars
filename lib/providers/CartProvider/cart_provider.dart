@@ -10,6 +10,8 @@ class CartProvider extends ChangeNotifier {
   int get count => cart?.items.length ?? 0;
 
   Future<void> loadCart(String userId) async {
+        print("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
+
     isLoading = true;
     notifyListeners();
 

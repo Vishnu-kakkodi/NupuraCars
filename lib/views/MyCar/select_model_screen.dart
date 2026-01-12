@@ -1,50 +1,57 @@
-// lib/views/CarService/select_brand_screen.dart
+// lib/views/CarService/select_model_screen.dart
 import 'package:flutter/material.dart';
 import 'package:nupura_cars/models/MyCarModel/car_models.dart';
 import 'package:nupura_cars/providers/MyCarProvider/car_provider.dart';
-import 'package:nupura_cars/views/CarService/select_model_screen.dart';
+import 'package:nupura_cars/views/MyCar/add_car_details_screen.dart';
 import 'package:provider/provider.dart';
 
-class SelectBrandScreen extends StatefulWidget {
-  /// null = add new car
-  /// non-null = editing existing car
+class SelectModelScreen extends StatefulWidget {
+  /// Full brand object (from brands API)
+  final Brand brand;
+
+  /// null => add new car, non-null => editing existing car
   final UserCar? editingCar;
 
-  const SelectBrandScreen({
+  const SelectModelScreen({
     super.key,
+    required this.brand,
     this.editingCar,
   });
 
   @override
-  State<SelectBrandScreen> createState() => _SelectBrandScreenState();
+  State<SelectModelScreen> createState() => _SelectModelScreenState();
 }
 
-class _SelectBrandScreenState extends State<SelectBrandScreen> {
+class _SelectModelScreenState extends State<SelectModelScreen> {
   String _query = '';
 
   @override
   void initState() {
     super.initState();
 
-    // Call brand GET API when this screen opens
+    /// Load models / service cars for this brand
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider = Provider.of<MyCarProvider>(context, listen: false);
-      provider.loadBrands(); // <-- your brand list API
+      // This should call:
+      // GET /api/admin/allservicecarsbyfilter?brandName=<brand.name>
+      provider.loadServiceCarsForBrand(widget.brand.name);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<MyCarProvider>(context);
-    final brands = provider.brands
-        .where((b) => b.name.toLowerCase().contains(_query.toLowerCase()))
+
+    // serviceCars is List<ServiceCarModel> with fields: id, name, image
+    final models = provider.serviceCars
+        .where(
+          (m) => m.name.toLowerCase().contains(_query.toLowerCase()),
+        )
         .toList();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.editingCar == null
-            ? 'Select Brand'
-            : 'Edit Car - Select Brand'),
+        title: Text('Select Model - ${widget.brand.name}'),
       ),
       body: Column(
         children: [
@@ -62,7 +69,6 @@ class _SelectBrandScreenState extends State<SelectBrandScreen> {
               onChanged: (v) => setState(() => _query = v),
             ),
           ),
-          const SizedBox(height: 4),
           Expanded(
             child: GridView.builder(
               padding: const EdgeInsets.all(16),
@@ -72,9 +78,9 @@ class _SelectBrandScreenState extends State<SelectBrandScreen> {
                 crossAxisSpacing: 16,
                 childAspectRatio: 0.9,
               ),
-              itemCount: brands.length,
+              itemCount: models.length,
               itemBuilder: (_, index) {
-                final brand = brands[index];
+                final model = models[index];
 
                 return InkWell(
                   borderRadius: BorderRadius.circular(16),
@@ -82,9 +88,15 @@ class _SelectBrandScreenState extends State<SelectBrandScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => SelectModelScreen(
-                          brand: brand,                  // full CarBrand
-                          editingCar: widget.editingCar, // pass through for edit
+                        builder: (_) => AddCarDetailsScreen(
+                          // Brand / model info from API
+                          brandName: widget.brand.name,
+                          modelName: model.name,
+                          modelImage: model.image,
+                          carId: model.id,
+
+                          // 👉 if editing, pass existing UserCar
+                          editingCar: widget.editingCar,
                         ),
                       ),
                     );
@@ -107,38 +119,27 @@ class _SelectBrandScreenState extends State<SelectBrandScreen> {
                           padding: const EdgeInsets.all(8),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12),
-                            child: brand.image.isNotEmpty
+                            child: (model.image.isNotEmpty)
                                 ? Image.network(
-                                    brand.image,
+                                    model.image,
                                     fit: BoxFit.contain,
                                     errorBuilder:
                                         (context, error, stackTrace) {
-                                      return Center(
-                                        child: Text(
-                                          brand.name.substring(0, 1),
-                                          style: const TextStyle(
-                                            fontSize: 28,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
+                                      return const Center(
+                                        child: Icon(Icons.directions_car),
                                       );
                                     },
                                   )
-                                : Center(
-                                    child: Text(
-                                      brand.name.substring(0, 1),
-                                      style: const TextStyle(
-                                        fontSize: 28,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
+                                : const Center(
+                                    child: Icon(Icons.directions_car),
                                   ),
                           ),
                         ),
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        brand.name,
+                        model.name,
+                        style: const TextStyle(fontSize: 12),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),

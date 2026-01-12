@@ -12,20 +12,24 @@ import 'package:nupura_cars/providers/ServiceNameProvider/service_name_provider.
 import 'package:nupura_cars/providers/WalletProvider/wallet_provider.dart';
 import 'package:nupura_cars/utils/StoragePreference/storage_prefs.dart';
 import 'package:nupura_cars/views/BookingScreen/checkout_screen.dart';
+import 'package:nupura_cars/views/CarDecor/car_decor_screen.dart';
 import 'package:nupura_cars/views/CarList/car_list_screen.dart';
-import 'package:nupura_cars/views/CarService/New/water_wash_screen.dart';
-import 'package:nupura_cars/views/CarService/current_service_car_screen.dart';
-import 'package:nupura_cars/views/CarService/select_brand_screen.dart';
-import 'package:nupura_cars/views/HomeScreen/coming_soon_screen.dart';
-import 'package:nupura_cars/views/HomeScreen/services_screen.dart';
+import 'package:nupura_cars/views/CarRent/car_rent_screen.dart';
+import 'package:nupura_cars/views/CarRent/rent_category.dart';
+import 'package:nupura_cars/views/CarWash/water_wash_screen.dart';
+import 'package:nupura_cars/views/MyCar/select_brand_screen.dart';
+import 'package:nupura_cars/views/CarService/services_screen.dart';
 import 'package:nupura_cars/views/LocationScreen/location_search_screen.dart';
 import 'package:nupura_cars/views/MainScreen/main_navbar_screen.dart';
 import 'package:nupura_cars/views/ProfileScreen/edit_profile_screen.dart';
 import 'package:nupura_cars/views/ProfileScreen/refer_screen.dart';
 import 'package:nupura_cars/views/guest_modal.dart';
+import 'package:nupura_cars/widgects/BackControl/back_confirm_dialog.dart';
+import 'package:nupura_cars/widgects/HomeCarousel/brands_we_trust_widget.dart';
 import 'package:nupura_cars/widgects/HomeCarousel/home_carousel.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:nupura_cars/widgects/HomeCarousel/why_choose_widget.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -489,7 +493,7 @@ class _HomeScreenState extends State<HomeScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Categories',
+            'Our Services',
             style: TextStyle(
               fontSize: getResponsiveValue(
                 context,
@@ -513,13 +517,19 @@ class _HomeScreenState extends State<HomeScreen> {
   });
 
   // If this tab requires navigation, do it here (outside build)
-  if (index == 1) {
+  if (index == 0) {
     // Services tab
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => RentCategory()),
+    );
+  } else if (index == 1) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (_) => ServicesScreen()),
     );
-  } else if (index == 2) {
+  } 
+  else if (index == 2) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (_) => WaterWashScreen()),
@@ -527,9 +537,7 @@ class _HomeScreenState extends State<HomeScreen> {
   } else if (index == 3) {
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (_) => ComingSoonScreen(title: "Decors"),
-      ),
+      MaterialPageRoute(builder: (_) => CarDecorScreen()),
     );
   }
 
@@ -692,196 +700,196 @@ class _HomeScreenState extends State<HomeScreen> {
 
 Widget _buildCategoryContent(DateTimeProvider dateTimeProvider) {
   // 🚀 Handle navigation for tabs 1, 2, 3
-  if (_selectedCategoryIndex != 0) {
-    return const SizedBox.shrink();
-  }
+  // if (_selectedCategoryIndex != 0) {
+  //   return const SizedBox.shrink();
+  // }
 
   // ---------------------------------------------------------
   // 🟦 INDEX 0 → SHOW YOUR EXISTING CARS TAB UI
   // ---------------------------------------------------------
-  if (_selectedCategoryIndex == 0) {
-      return Column(
-        children: [
-          SizedBox(height: 24),
-          _buildDateTimeSelector(context, dateTimeProvider),
-          SizedBox(height: 32),
+  // if (_selectedCategoryIndex == 0) {
+  //     return Column(
+  //       children: [
+  //         SizedBox(height: 24),
+  //         _buildDateTimeSelector(context, dateTimeProvider),
+  //         SizedBox(height: 32),
 
-          // Available Cars Section Header
-          Container(
-            margin: EdgeInsets.symmetric(
-              horizontal: getResponsiveValue(
-                context,
-                mobile: 16,
-                tablet: 24,
-                desktop: 32,
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Available Cars',
-                  style: TextStyle(
-                    fontSize: getResponsiveValue(
-                      context,
-                      mobile: 20,
-                      tablet: 22,
-                      desktop: 24,
-                    ),
-                    fontWeight: FontWeight.bold,
-                    color: _textPrimary,
-                  ),
-                ),
-                TextButton.icon(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ModernCarListScreen(guest: guest),
-                      ),
-                    );
-                  },
-                  icon: Text(
-                    'View All',
-                    style: TextStyle(
-                      color: _primaryColor,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14,
-                    ),
-                  ),
-                  label: Icon(
-                    Icons.arrow_forward_ios,
-                    size: 16,
-                    color: _primaryColor,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 16),
+  //         // Available Cars Section Header
+  //         Container(
+  //           margin: EdgeInsets.symmetric(
+  //             horizontal: getResponsiveValue(
+  //               context,
+  //               mobile: 16,
+  //               tablet: 24,
+  //               desktop: 32,
+  //             ),
+  //           ),
+  //           child: Row(
+  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //             children: [
+  //               Text(
+  //                 'Available Cars',
+  //                 style: TextStyle(
+  //                   fontSize: getResponsiveValue(
+  //                     context,
+  //                     mobile: 20,
+  //                     tablet: 22,
+  //                     desktop: 24,
+  //                   ),
+  //                   fontWeight: FontWeight.bold,
+  //                   color: _textPrimary,
+  //                 ),
+  //               ),
+  //               TextButton.icon(
+  //                 onPressed: () {
+  //                   Navigator.push(
+  //                     context,
+  //                     MaterialPageRoute(
+  //                       builder: (context) => ModernCarListScreen(guest: guest),
+  //                     ),
+  //                   );
+  //                 },
+  //                 icon: Text(
+  //                   'View All',
+  //                   style: TextStyle(
+  //                     color: _primaryColor,
+  //                     fontWeight: FontWeight.w600,
+  //                     fontSize: 14,
+  //                   ),
+  //                 ),
+  //                 label: Icon(
+  //                   Icons.arrow_forward_ios,
+  //                   size: 16,
+  //                   color: _primaryColor,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //         SizedBox(height: 16),
 
-          // Cars List
-          Container(
-            height: getResponsiveValue(
-              context,
-              mobile: 380,
-              tablet: 380,
-              desktop: 400,
-            ),
-            child: Consumer<CarProvider>(
-              builder: (context, carProvider, child) {
-                final cars = carProvider.cars;
+  //         // Cars List
+  //         Container(
+  //           height: getResponsiveValue(
+  //             context,
+  //             mobile: 380,
+  //             tablet: 380,
+  //             desktop: 400,
+  //           ),
+  //           child: Consumer<CarProvider>(
+  //             builder: (context, carProvider, child) {
+  //               final cars = carProvider.cars;
 
-                if (carProvider.isLoading) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircularProgressIndicator(color: _primaryColor),
-                        SizedBox(height: 16),
-                        Text(
-                          'Loading cars...',
-                          style: TextStyle(
-                            color: _textSecondary,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }
+  //               if (carProvider.isLoading) {
+  //                 return Center(
+  //                   child: Column(
+  //                     mainAxisAlignment: MainAxisAlignment.center,
+  //                     children: [
+  //                       CircularProgressIndicator(color: _primaryColor),
+  //                       SizedBox(height: 16),
+  //                       Text(
+  //                         'Loading cars...',
+  //                         style: TextStyle(
+  //                           color: _textSecondary,
+  //                           fontSize: 16,
+  //                           fontWeight: FontWeight.w500,
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 );
+  //               }
 
-                if (carProvider.hasError) {
-                  return Center(
-                    child: Container(
-                      margin: EdgeInsets.all(24),
-                      padding: EdgeInsets.all(28),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.errorContainer,
-                        borderRadius: BorderRadius.circular(24),
-                        border: Border.all(
-                          color: Theme.of(context).colorScheme.error,
-                        ),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(
-                            Icons.error_outline,
-                            color: Theme.of(context).colorScheme.error,
-                            size: 48,
-                          ),
-                          SizedBox(height: 16),
-                          Text(
-                            'Failed to load cars',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).colorScheme.error,
-                            ),
-                          ),
-                          SizedBox(height: 20),
-                          ElevatedButton(
-                            onPressed: () => _loadCarsWithFilters(guest),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Theme.of(
-                                context,
-                              ).colorScheme.error,
-                            ),
-                            child: Text('Retry'),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                }
+  //               if (carProvider.hasError) {
+  //                 return Center(
+  //                   child: Container(
+  //                     margin: EdgeInsets.all(24),
+  //                     padding: EdgeInsets.all(28),
+  //                     decoration: BoxDecoration(
+  //                       color: Theme.of(context).colorScheme.errorContainer,
+  //                       borderRadius: BorderRadius.circular(24),
+  //                       border: Border.all(
+  //                         color: Theme.of(context).colorScheme.error,
+  //                       ),
+  //                     ),
+  //                     child: Column(
+  //                       mainAxisSize: MainAxisSize.min,
+  //                       children: [
+  //                         Icon(
+  //                           Icons.error_outline,
+  //                           color: Theme.of(context).colorScheme.error,
+  //                           size: 48,
+  //                         ),
+  //                         SizedBox(height: 16),
+  //                         Text(
+  //                           'Failed to load cars',
+  //                           style: TextStyle(
+  //                             fontSize: 18,
+  //                             fontWeight: FontWeight.bold,
+  //                             color: Theme.of(context).colorScheme.error,
+  //                           ),
+  //                         ),
+  //                         SizedBox(height: 20),
+  //                         ElevatedButton(
+  //                           onPressed: () => _loadCarsWithFilters(guest),
+  //                           style: ElevatedButton.styleFrom(
+  //                             backgroundColor: Theme.of(
+  //                               context,
+  //                             ).colorScheme.error,
+  //                           ),
+  //                           child: Text('Retry'),
+  //                         ),
+  //                       ],
+  //                     ),
+  //                   ),
+  //                 );
+  //               }
 
-                if (cars.isEmpty) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.directions_car_outlined,
-                          size: 64,
-                          color: _textSecondary,
-                        ),
-                        SizedBox(height: 16),
-                        Text(
-                          'No cars available',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            color: _textPrimary,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }
+  //               if (cars.isEmpty) {
+  //                 return Center(
+  //                   child: Column(
+  //                     mainAxisAlignment: MainAxisAlignment.center,
+  //                     children: [
+  //                       Icon(
+  //                         Icons.directions_car_outlined,
+  //                         size: 64,
+  //                         color: _textSecondary,
+  //                       ),
+  //                       SizedBox(height: 16),
+  //                       Text(
+  //                         'No cars available',
+  //                         style: TextStyle(
+  //                           fontSize: 18,
+  //                           fontWeight: FontWeight.w600,
+  //                           color: _textPrimary,
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 );
+  //               }
 
-                final validCars = cars.where((car) {
-                  return car != null && car.name != null && car.name.isNotEmpty;
-                }).toList();
+  //               final validCars = cars.where((car) {
+  //                 return car != null && car.name != null && car.name.isNotEmpty;
+  //               }).toList();
 
-                return ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  itemCount: validCars.length,
-                  itemBuilder: (context, index) {
-                    return _buildFloatingGlassCarCard(
-                      validCars[index],
-                      context,
-                    );
-                  },
-                );
-              },
-            ),
-          ),
-        ],
-      );
-  }
+  //               return ListView.builder(
+  //                 scrollDirection: Axis.horizontal,
+  //                 padding: EdgeInsets.symmetric(horizontal: 20),
+  //                 itemCount: validCars.length,
+  //                 itemBuilder: (context, index) {
+  //                   return _buildFloatingGlassCarCard(
+  //                     validCars[index],
+  //                     context,
+  //                   );
+  //                 },
+  //               );
+  //             },
+  //           ),
+  //         ),
+  //       ],
+  //     );
+  // }
 
   return SizedBox();
 }
@@ -1918,153 +1926,185 @@ Widget _buildCurrentCarCard(UserCar car) {
     final bookingProvider = Provider.of<BookingProvider>(context);
     final walletProvider = Provider.of<WalletProvider>(context);
 
-    return Scaffold(
-      backgroundColor: _scaffoldBackgroundColor,
-      body: SafeArea(
-        top: false,
-        child: RefreshIndicator(
-          onRefresh: _handleRefresh,
-          color: _primaryColor,
-          backgroundColor: _cardColor,
-          strokeWidth: 3,
-          displacement: 60,
-          child: CustomScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            slivers: [
-              SliverToBoxAdapter(
-                child: _buildModernAppBar(context, walletProvider),
-              ),
-              const SliverToBoxAdapter(child: SizedBox(height: 12)),
-              SliverToBoxAdapter(
-                child: Container(
-                  margin: EdgeInsets.symmetric(
-                    horizontal: getResponsiveValue(
-                      context,
-                      mobile: 16,
-                      tablet: 24,
-                      desktop: 32,
-                    ),
-                  ),
-                  child: _buildHeroBanner(context, carouselImages),
-                ),
-              ),
-              const SliverToBoxAdapter(child: SizedBox(height: 4)),
-              SliverToBoxAdapter(
-                child: Consumer<BookingProvider>(
-                  builder: (context, bookingProvider, _) {
-                    final booking = bookingProvider.recentBooking;
-                    if (bookingProvider.isLoading) {
-                      return Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: CircularProgressIndicator(
-                            color: _primaryColor,
-                          ),
-                        ),
-                      );
-                    }
-                    if (booking == null) return const SizedBox.shrink();
+    return PopScope(
+      canPop: false,
+           onPopInvoked: (didPop) async {
+        if (didPop) return;
 
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 12,
+        final shouldExit = await showBackConfirmDialog(context);
+        if (shouldExit) {
+          Navigator.of(context).pop(); // exits app / screen
+        }
+      },
+      child: Scaffold(
+        backgroundColor: _scaffoldBackgroundColor,
+        body: SafeArea(
+          top: false,
+          child: RefreshIndicator(
+            onRefresh: _handleRefresh,
+            color: _primaryColor,
+            backgroundColor: _cardColor,
+            strokeWidth: 3,
+            displacement: 60,
+            child: CustomScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              slivers: [
+                SliverToBoxAdapter(
+                  child: _buildModernAppBar(context, walletProvider),
+                ),
+                const SliverToBoxAdapter(child: SizedBox(height: 12)),
+                SliverToBoxAdapter(
+                  child: Container(
+                    margin: EdgeInsets.symmetric(
+                      horizontal: getResponsiveValue(
+                        context,
+                        mobile: 16,
+                        tablet: 24,
+                        desktop: 32,
                       ),
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: _cardColor,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      child: Row(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.network(
-                              booking.car.image.isNotEmpty
-                                  ? booking.car.image.first
-                                  : 'https://via.placeholder.com/100',
-                              width: 100,
-                              height: 70,
-                              fit: BoxFit.fill,
+                    ),
+                    child: _buildHeroBanner(context, carouselImages),
+                  ),
+                ),
+                const SliverToBoxAdapter(child: SizedBox(height: 4)),
+                SliverToBoxAdapter(
+                  child: Consumer<BookingProvider>(
+                    builder: (context, bookingProvider, _) {
+                      final booking = bookingProvider.recentBooking;
+                      if (bookingProvider.isLoading) {
+                        return Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: CircularProgressIndicator(
+                              color: _primaryColor,
                             ),
                           ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  booking.car.name,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: _textPrimary,
-                                  ),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  'From: ${booking.from}  →  To: ${booking.to}',
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    color: _textSecondary,
-                                  ),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  'Status: ${booking.status}',
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    color: booking.status.toLowerCase() ==
-                                            'active'
-                                        ? Colors.green
-                                        : Colors.orange,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ],
+                        );
+                      }
+                      if (booking == null) return const SizedBox.shrink();
+      
+                      return Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: _cardColor,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black12,
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
                             ),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) =>
-                                      MainNavigationScreen(initialIndex: 1),
-                                ),
-                              );
-                            },
-                            child: Text(
-                              'View',
-                              style: TextStyle(
-                                color: _primaryColor,
-                                fontWeight: FontWeight.w600,
+                          ],
+                        ),
+                        child: Row(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.network(
+                                booking.car.image.isNotEmpty
+                                    ? booking.car.image.first
+                                    : 'https://via.placeholder.com/100',
+                                width: 100,
+                                height: 70,
+                                fit: BoxFit.fill,
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    booking.car.name,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: _textPrimary,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    'From: ${booking.from}  →  To: ${booking.to}',
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      color: _textSecondary,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    'Status: ${booking.status}',
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      color: booking.status.toLowerCase() ==
+                                              'active'
+                                          ? Colors.green
+                                          : Colors.orange,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) =>
+                                        MainNavigationScreen(initialIndex: 1),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                'View',
+                                style: TextStyle(
+                                  color: _primaryColor,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              ),
-              SliverToBoxAdapter(child: _buildCategorySection()),
-              SliverToBoxAdapter(
-                child: Consumer<DateTimeProvider>(
-                  builder: (context, dateTimeProvider, _) {
-                    return _buildCategoryContent(dateTimeProvider);
-                  },
+SliverToBoxAdapter(child: _buildCategorySection()),
+
+const SliverToBoxAdapter(
+  child: SizedBox(height: 24),
+),
+
+const SliverToBoxAdapter(
+  child: BrandsWeTrustWidget(),
+),
+
+const SliverToBoxAdapter(
+  child: SizedBox(height: 32),
+),
+
+const SliverToBoxAdapter(
+  child: WhyChooseWidget(),
+),
+
+const SliverToBoxAdapter(
+  child: SizedBox(height: 32),
+),
+
+                SliverToBoxAdapter(
+                  child: Consumer<DateTimeProvider>(
+                    builder: (context, dateTimeProvider, _) {
+                      return _buildCategoryContent(dateTimeProvider);
+                    },
+                  ),
                 ),
-              ),
-              const SliverToBoxAdapter(child: SizedBox(height: 100)),
-            ],
+                const SliverToBoxAdapter(child: SizedBox(height: 100)),
+              ],
+            ),
           ),
         ),
       ),

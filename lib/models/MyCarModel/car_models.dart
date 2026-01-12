@@ -118,6 +118,7 @@ class UserCar {
   final String variant;
   final DateTime? createdAt;
   final DateTime? updatedAt;
+  final String? seater;
 
   UserCar({
     required this.id,
@@ -131,6 +132,7 @@ class UserCar {
     this.car,
     this.createdAt,
     this.updatedAt,
+    this.seater
   });
 
   factory UserCar.fromJson(Map<String, dynamic> json) {
@@ -162,6 +164,7 @@ class UserCar {
           json['createdAt'] != null ? DateTime.parse(json['createdAt']) : null,
       updatedAt:
           json['updatedAt'] != null ? DateTime.parse(json['updatedAt']) : null,
+          seater: json['seater'] ?? ''
     );
   }
 }
@@ -172,12 +175,14 @@ class UserCarRequest {
   final String registrationNumber;
   final String fuelType;
   final String variant;
+  final String seater;
 
   UserCarRequest({
     required this.carId,
     required this.registrationNumber,
     required this.fuelType,
     required this.variant,
+    required this.seater
   });
 
   Map<String, dynamic> toJson() {
@@ -186,6 +191,7 @@ class UserCarRequest {
       "registrationNumber": registrationNumber,
       "fuelType": fuelType,
       "variant": variant,
+      "seater": seater
     };
   }
 }

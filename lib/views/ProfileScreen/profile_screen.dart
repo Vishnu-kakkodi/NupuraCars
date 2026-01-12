@@ -1240,6 +1240,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:nupura_cars/views/CartScreen/cart_screen.dart';
+import 'package:nupura_cars/views/MainScreen/main_navbar_screen.dart';
+import 'package:nupura_cars/widgects/BackControl/back_confirm_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -1402,38 +1404,49 @@ class _ProfileScreenState extends State<ProfileScreen>
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     
-    return Scaffold(
-      backgroundColor: theme.scaffoldBackgroundColor,
-      body: FadeTransition(
-        opacity: _fadeAnimation,
-        child: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
-          slivers: [
-            // Curved Header with Floating Profile
-            _buildCurvedHeader(context, theme, isDark),
-            
-            // Content Section
-            SliverToBoxAdapter(
-              child: SlideTransition(
-                position: _slideAnimation,
-                child: Column(
-                  children: [
-                    const SizedBox(height: 60), // Space for floating profile
-                    
-                    // User Info Card
-                    _buildUserInfoCard(context, theme, isDark),
-                    
-                    const SizedBox(height: 32),
-                    
-                    // Menu Grid
-                    _buildMenuGrid(context, theme, isDark),
-                    
-                    const SizedBox(height: 40),
-                  ],
+    return PopScope(
+      canPop: false,
+           onPopInvoked: (didPop) async {
+        if (didPop) return;
+
+        final shouldExit = await showBackConfirmDialog(context);
+        if (shouldExit) {
+          Navigator.of(context).pop(); // exits app / screen
+        }
+      },
+      child: Scaffold(
+        backgroundColor: theme.scaffoldBackgroundColor,
+        body: FadeTransition(
+          opacity: _fadeAnimation,
+          child: CustomScrollView(
+            physics: const BouncingScrollPhysics(),
+            slivers: [
+              // Curved Header with Floating Profile
+              _buildCurvedHeader(context, theme, isDark),
+              
+              // Content Section
+              SliverToBoxAdapter(
+                child: SlideTransition(
+                  position: _slideAnimation,
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 60), // Space for floating profile
+                      
+                      // User Info Card
+                      _buildUserInfoCard(context, theme, isDark),
+                      
+                      const SizedBox(height: 32),
+                      
+                      // Menu Grid
+                      _buildMenuGrid(context, theme, isDark),
+                      
+                      const SizedBox(height: 40),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -1687,18 +1700,18 @@ class _ProfileScreenState extends State<ProfileScreen>
         'route': const EditProfile(),
         'requireAuth': true,
       },
-            {
-        'icon': Icons.shop,
-        'title': 'Cart',
-        'color': _successGreen,
-        'route': const CartScreen(),
-        'requireAuth': true,
-      },
       {
         'icon': Icons.history_outlined,
         'title': 'Trip History',
         'color': _successGreen,
-        'route': const BookingScreen(),
+        'route': const MainNavigationScreen(initialIndex: 1,),
+        'requireAuth': true,
+      },
+            {
+        'icon': Icons.book_online,
+        'title': 'Bookings',
+        'color': _successGreen,
+        'route': const MainNavigationScreen(initialIndex: 2,),
         'requireAuth': true,
       },
       {
