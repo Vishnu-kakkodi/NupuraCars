@@ -18,7 +18,7 @@ class WhyChooseWidget extends StatelessWidget {
         icon: Icons.currency_rupee,
         title: 'Affordable Rates',
         description:
-            'Cost-effective solutions without compromising quality',
+            'Cost-effective solutions.',
       ),
       _WhyChooseItem(
         icon: Icons.local_shipping,

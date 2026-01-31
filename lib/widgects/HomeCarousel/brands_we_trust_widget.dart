@@ -1,7 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:nupura_cars/widgects/HomeCarousel/video.dart';
 
 class BrandsWeTrustWidget extends StatelessWidget {
   const BrandsWeTrustWidget({super.key});
+
+
+    void _showVideoModal(BuildContext context) {
+    print("calledddddddddddddddddddddddddddddddddddddddddd");
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true, // Allows the modal to take up more space
+    backgroundColor: Colors.black,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    ),
+    builder: (context) => const VideoPlayerModal(),
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -47,28 +63,34 @@ class BrandsWeTrustWidget extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             scrollDirection: Axis.horizontal,
             itemBuilder: (_, index) {
-              return Container(
-                width: 140,
-                decoration: BoxDecoration(
-                  color: cs.surface,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: cs.outlineVariant),
-                ),
-                child: Image.network(
-                  brands[index],
-                  fit: BoxFit.fill,
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return const Center(
-                      child: CircularProgressIndicator(strokeWidth: 2),
-                    );
-                  },
-                  errorBuilder: (context, error, stackTrace) {
-                    return Icon(
-                      Icons.image_not_supported,
-                      color: cs.onSurfaceVariant,
-                    );
-                  },
+              return GestureDetector(
+                               onTap: () {
+                                                           _showVideoModal(context);
+
+                              },
+                child: Container(
+                  width: 140,
+                  decoration: BoxDecoration(
+                    color: cs.surface,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: cs.outlineVariant),
+                  ),
+                  child: Image.network(
+                    brands[index],
+                    fit: BoxFit.fill,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return const Center(
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      );
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      return Icon(
+                        Icons.image_not_supported,
+                        color: cs.onSurfaceVariant,
+                      );
+                    },
+                  ),
                 ),
               );
             },

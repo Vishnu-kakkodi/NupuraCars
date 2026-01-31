@@ -415,9 +415,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
                         cellWidth: itemWidth,
                         cellHeight: itemHeight,
                         onTap: () {
-                          if (myCarProvider.myCars.isEmpty) {
-                            _showAddCarSheet(context);
-                          } else {
+                
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -429,7 +427,6 @@ class _ServicesScreenState extends State<ServicesScreen> {
                                 ),
                               ),
                             );
-                          }
                         },
                       );
                     },

@@ -541,11 +541,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // Existing behavior you kept: show coming-soon dialog or no-cars sheet
-  if (index == 1) {
-    final myCarProvider = Provider.of<MyCarProvider>(context, listen: false);
-    if (myCarProvider.myCars.isEmpty) _showNoCarsBottomSheet();
-  }
 },
 
                   child: Container(

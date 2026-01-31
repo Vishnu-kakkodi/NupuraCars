@@ -33,17 +33,6 @@ class _CarDecorScreenState extends State<CarDecorScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
-    if (!_checkedCar) {
-      _checkedCar = true;
-      final carProvider = context.read<MyCarProvider>();
-
-      if (carProvider.myCars.isEmpty) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          _showAddCarSheet(context);
-        });
-      }
-    }
   }
 
   @override

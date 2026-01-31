@@ -207,15 +207,15 @@ class _ImageRentCard extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  if (!isActive)
-                    const Text(
-                      'Enquiry Only',
-                      style: TextStyle(
-                        color: Colors.orangeAccent,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                  // if (!isActive)
+                  //   const Text(
+                  //     'Enquiry Only',
+                  //     style: TextStyle(
+                  //       color: Colors.orangeAccent,
+                  //       fontSize: 12,
+                  //       fontWeight: FontWeight.w600,
+                  //     ),
+                  //   ),
                 ],
               ),
             ),
