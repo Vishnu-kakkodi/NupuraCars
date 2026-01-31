@@ -1962,112 +1962,112 @@ Widget _buildCurrentCarCard(UserCar car) {
                   ),
                 ),
                 const SliverToBoxAdapter(child: SizedBox(height: 4)),
-                SliverToBoxAdapter(
-                  child: Consumer<BookingProvider>(
-                    builder: (context, bookingProvider, _) {
-                      final booking = bookingProvider.recentBooking;
-                      if (bookingProvider.isLoading) {
-                        return Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: CircularProgressIndicator(
-                              color: _primaryColor,
-                            ),
-                          ),
-                        );
-                      }
-                      if (booking == null) return const SizedBox.shrink();
+                // SliverToBoxAdapter(
+                //   child: Consumer<BookingProvider>(
+                //     builder: (context, bookingProvider, _) {
+                //       final booking = bookingProvider.recentBooking;
+                //       if (bookingProvider.isLoading) {
+                //         return Center(
+                //           child: Padding(
+                //             padding: const EdgeInsets.all(20.0),
+                //             child: CircularProgressIndicator(
+                //               color: _primaryColor,
+                //             ),
+                //           ),
+                //         );
+                //       }
+                //       if (booking == null) return const SizedBox.shrink();
       
-                      return Container(
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 12,
-                        ),
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: _cardColor,
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black12,
-                              blurRadius: 10,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: Row(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: Image.network(
-                                booking.car.image.isNotEmpty
-                                    ? booking.car.image.first
-                                    : 'https://via.placeholder.com/100',
-                                width: 100,
-                                height: 70,
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                            const SizedBox(width: 16),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    booking.car.name,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                      color: _textPrimary,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    'From: ${booking.from}  →  To: ${booking.to}',
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      color: _textSecondary,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    'Status: ${booking.status}',
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      color: booking.status.toLowerCase() ==
-                                              'active'
-                                          ? Colors.green
-                                          : Colors.orange,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) =>
-                                        MainNavigationScreen(initialIndex: 1),
-                                  ),
-                                );
-                              },
-                              child: Text(
-                                'View',
-                                style: TextStyle(
-                                  color: _primaryColor,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ),
+                //       return Container(
+                //         margin: const EdgeInsets.symmetric(
+                //           horizontal: 16,
+                //           vertical: 12,
+                //         ),
+                //         padding: const EdgeInsets.all(16),
+                //         decoration: BoxDecoration(
+                //           color: _cardColor,
+                //           borderRadius: BorderRadius.circular(16),
+                //           boxShadow: [
+                //             BoxShadow(
+                //               color: Colors.black12,
+                //               blurRadius: 10,
+                //               offset: const Offset(0, 4),
+                //             ),
+                //           ],
+                //         ),
+                //         child: Row(
+                //           children: [
+                //             ClipRRect(
+                //               borderRadius: BorderRadius.circular(12),
+                //               child: Image.network(
+                //                 booking.car.image.isNotEmpty
+                //                     ? booking.car.image.first
+                //                     : 'https://via.placeholder.com/100',
+                //                 width: 100,
+                //                 height: 70,
+                //                 fit: BoxFit.fill,
+                //               ),
+                //             ),
+                //             const SizedBox(width: 16),
+                //             Expanded(
+                //               child: Column(
+                //                 crossAxisAlignment: CrossAxisAlignment.start,
+                //                 children: [
+                //                   Text(
+                //                     booking.car.name,
+                //                     style: TextStyle(
+                //                       fontWeight: FontWeight.bold,
+                //                       fontSize: 16,
+                //                       color: _textPrimary,
+                //                     ),
+                //                   ),
+                //                   const SizedBox(height: 4),
+                //                   Text(
+                //                     'From: ${booking.from}  →  To: ${booking.to}',
+                //                     style: TextStyle(
+                //                       fontSize: 13,
+                //                       color: _textSecondary,
+                //                     ),
+                //                   ),
+                //                   const SizedBox(height: 4),
+                //                   Text(
+                //                     'Status: ${booking.status}',
+                //                     style: TextStyle(
+                //                       fontSize: 13,
+                //                       color: booking.status.toLowerCase() ==
+                //                               'active'
+                //                           ? Colors.green
+                //                           : Colors.orange,
+                //                       fontWeight: FontWeight.w600,
+                //                     ),
+                //                   ),
+                //                 ],
+                //               ),
+                //             ),
+                //             TextButton(
+                //               onPressed: () {
+                //                 Navigator.push(
+                //                   context,
+                //                   MaterialPageRoute(
+                //                     builder: (_) =>
+                //                         MainNavigationScreen(initialIndex: 1),
+                //                   ),
+                //                 );
+                //               },
+                //               child: Text(
+                //                 'View',
+                //                 style: TextStyle(
+                //                   color: _primaryColor,
+                //                   fontWeight: FontWeight.w600,
+                //                 ),
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //       );
+                //     },
+                //   ),
+                // ),
 SliverToBoxAdapter(child: _buildCategorySection()),
 
 const SliverToBoxAdapter(
@@ -2380,7 +2380,7 @@ const SliverToBoxAdapter(
   Widget _buildHeroBanner(BuildContext context, List<String> carouselImages) {
     final bannerHeight = getResponsiveValue(
       context,
-      mobile: 180,
+      mobile: 200,
       tablet: 250,
       desktop: 240,
     );
