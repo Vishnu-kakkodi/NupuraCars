@@ -4,6 +4,8 @@ class ApiConstants {
   // Auth Endpoints
   static const String loginEndpoint = '/users/loginuser';
   static const String registerEndpoint = '/users/register';
+    static const String logindddd = '/users/loginuser';
+
 
   // Booking Endpoints
   static const String fetchBookings = '/users/bookings';
